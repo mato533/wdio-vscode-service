@@ -46,7 +46,8 @@ const capabilities: VSCodeCapabilities = {
             'terminal.integrated.defaultProfile.osx': 'bash'
         }
         // verboseLogging: true
-    }
+    },
+    'wdio:enforceWebDriverClassic': true,
 }
 
 if (isWebTest) {
