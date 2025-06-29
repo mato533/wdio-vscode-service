@@ -9,6 +9,7 @@
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typeScriptVersion": "3.8.3",
+  "packageManager": "pnpm@10.8.0",
   "engines": {
     "node": "^16.13 || >=18"
   },
@@ -20,19 +21,19 @@
     "ci": "run-s test:lint build test",
     "clean": "rimraf ./node_modules ./dist",
     "docs": "typedoc",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release": "release-it --github.release",
-    "release:ci": "npm run release -- --ci --npm.skipChecks --no-git.requireCleanWorkingDir",
-    "release:patch": "npm run release -- patch",
-    "release:minor": "npm run release -- minor",
-    "release:major": "npm run release -- major",
+    "release:ci": "pnpm run release -- --ci --npm.skipChecks --no-git.requireCleanWorkingDir",
+    "release:patch": "pnpm run release -- patch",
+    "release:minor": "pnpm run release -- minor",
+    "release:major": "pnpm run release -- major",
     "test": "run-s test:*",
     "test:setup": "node ./.github/scripts/link.mjs",
     "test:lint": "eslint src test",
     "test:e2e": "run-s test:e2e:*",
     "test:e2e:run": "wdio run ./test/wdio.conf.ts",
     "test:e2e:cleanup": "git checkout -- package.json",
-    "watch": "npm run build:ts -- --watch"
+    "watch": "pnpm run build:ts -- --watch"
   },
   "keywords": [
     "webdriverio",
@@ -46,7 +47,7 @@
     "@fastify/static": "^7.0.1",
     "@types/ws": "^8.5.10",
     "@vscode/test-electron": "^2.3.9",
-    "@wdio/logger": "^8.28.0",
+    "@wdio/logger": "^9.16.2",
     "@xhmikosr/downloader": "^15.0.1",
     "clipboardy": "^3.0.0",
     "decamelize": "6.0.0",
@@ -61,7 +62,7 @@
     "yargs-parser": "^21.1.1"
   },
   "peerDependencies": {
-    "webdriverio": "^8.32.2"
+    "webdriverio": "*"
   },
   "peerDependenciesMeta": {
     "webdriverio": {
@@ -74,12 +75,12 @@
     "@types/vscode": "^1.86.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "@wdio/cli": "^8.32.2",
-    "@wdio/globals": "^8.32.2",
-    "@wdio/local-runner": "^8.32.2",
-    "@wdio/mocha-framework": "^8.32.2",
-    "@wdio/spec-reporter": "^8.32.2",
-    "@wdio/types": "^8.32.2",
+    "@wdio/cli": "^9.16.2",
+    "@wdio/globals": "^9.16.2",
+    "@wdio/local-runner": "^9.16.2",
+    "@wdio/mocha-framework": "^9.16.2",
+    "@wdio/spec-reporter": "^9.16.2",
+    "@wdio/types": "^9.16.2",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-base-typescript": "^1.1.0",
@@ -102,5 +103,13 @@
   "files": [
     "dist/*",
     "src/server/fs-provider"
-  ]
+  ],
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "edgedriver",
+      "esbuild",
+      "geckodriver",
+      "unrs-resolver"
+    ]
+  }
 }
