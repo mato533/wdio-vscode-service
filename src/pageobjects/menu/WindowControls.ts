@@ -1,5 +1,3 @@
-import type { ChainablePromiseElement } from 'webdriverio'
-
 import logger from '@wdio/logger'
 import {
     PageDecorator, IPageDecorator, BasePage, VSCodeLocatorMap
@@ -24,7 +22,7 @@ export class WindowControls extends BasePage<typeof WindowControlsLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element?: WebdriverIO.Element | string,
+        element?: ChainablePromiseElement | string,
         public bar: TitleBar = new TitleBar(locators)
     ) {
         super(locators, element)

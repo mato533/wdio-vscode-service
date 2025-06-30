@@ -165,7 +165,7 @@ export class StandaloneNotification extends Notification {
 
     constructor (
         locators: VSCodeLocatorMap,
-        notification: WebdriverIO.Element
+        notification: ChainablePromiseElement
     ) {
         super(locators, notification, locators.Notification.standaloneContainer as string)
     }

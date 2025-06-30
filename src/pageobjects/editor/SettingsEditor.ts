@@ -200,7 +200,7 @@ export class ComboSetting extends Setting {
 
     async setValue (value: string): Promise<void> {
         const rows = await this.getOptions()
-        for (let i = 0; i < rows.length; i += 1) {
+        for (let i = 0; i < await rows.length; i += 1) {
             if ((await rows[i].getAttribute('class')).indexOf('disabled') < 0) {
                 const text = await rows[i].$(this.locators.comboOption).getText()
                 if (value === text) {
@@ -231,14 +231,14 @@ export class ComboSetting extends Setting {
     }
 
     private async openCombo () {
-        const combo = await this.comboSetting$
-        const workbench = await browser.$(this.locatorMap.Workbench.elem as string)
-        const menus = await workbench.$$(this.locatorMap.ContextMenu.contextView as string)
-        let menu!: WebdriverIO.Element
+        const combo =  this.comboSetting$
+        const workbench =  browser.$(this.locatorMap.Workbench.elem as string)
+        const menus =  workbench.$$(this.locatorMap.ContextMenu.contextView as string)
+        let menu!: ChainablePromiseElement
 
-        if (menus.length < 1) {
+        if (await menus.length < 1) {
             await combo.click()
-            menu = await workbench.$(this.locatorMap.ContextMenu.contextView as string)
+            menu =  workbench.$(this.locatorMap.ContextMenu.contextView as string)
             return menu
         }
         if (await menus[0].isDisplayed()) {
@@ -247,7 +247,7 @@ export class ComboSetting extends Setting {
             await browser.pause(200)
         }
         await combo.click()
-        menu = await workbench.$(this.locatorMap.ContextMenu.contextView as string)
+        menu =  workbench.$(this.locatorMap.ContextMenu.contextView as string)
         return menu
     }
 }

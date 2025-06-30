@@ -21,7 +21,7 @@ export class DefaultTreeItem extends TreeItem {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: WebdriverIO.Element,
+        element: ChainablePromiseElement,
         public viewPart: TreeSection
     ) {
         super(locators, element, viewPart.elem)

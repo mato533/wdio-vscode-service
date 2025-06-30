@@ -214,6 +214,7 @@ export default class VSCodeWorkerService implements Services.ServiceInstance {
         this._browser.addCommand('getVSCodeChannel', () => (
             capabilities.browserVersion === 'insiders' ? 'insiders' : 'vscode'
         ))
+        // @ts-ignore
         await workbenchPO.elem.waitForExist()
 
         /**

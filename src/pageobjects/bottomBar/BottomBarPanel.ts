@@ -114,8 +114,8 @@ export class BottomBarPanel extends BasePage<typeof BottomBarPanelLocators> {
         await this.toggle(true)
         const tabContainer = await this.tabContainer$
         try {
-            const tabs = await tabContainer.$$(this.locators.tab(title))
-            if (tabs.length > 0) {
+            const tabs =  tabContainer.$$(this.locators.tab(title))
+            if (await tabs.length > 0) {
                 await tabs[0].click()
             } else {
                 const label = await tabContainer.$(`.//a[starts-with(@aria-label, '${title}')]`)
@@ -128,7 +128,7 @@ export class BottomBarPanel extends BasePage<typeof BottomBarPanelLocators> {
 
     private async resize (label: string) {
         await this.toggle(true)
-        let action!: WebdriverIO.Element
+        let action!: ChainablePromiseElement
         try {
             action = await this.elem
                 .$(this.locators.globalActions)

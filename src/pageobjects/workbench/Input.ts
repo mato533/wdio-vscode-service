@@ -149,8 +149,8 @@ export abstract class Input extends BasePage<AllInputLocators> {
      * @returns Promise resolving when all quick picks have been toggled to desired state
      */
     async toggleAllQuickPicks (state: boolean): Promise<void> {
-        const checkboxes = await this.quickPickSelectAll$$
-        if (checkboxes.length < 0) {
+        const checkboxes =  this.quickPickSelectAll$$
+        if (await checkboxes.length < 0) {
             return
         }
         if (!await checkboxes[0].isSelected()) {
@@ -167,8 +167,8 @@ export abstract class Input extends BasePage<AllInputLocators> {
      * @returns Promise resolvnig to QuickPickItem if found, to undefined otherwise
      */
     async findQuickPick (indexOrText: string | number): Promise<QuickPickItem | undefined> {
-        const first = await this.quickPickPosition$$(1)
-        if (first.length < 1) {
+        const first =  this.quickPickPosition$$(1)
+        if (await first.length < 1) {
             await this.resetPosition()
         }
         let endReached = false
@@ -176,8 +176,8 @@ export abstract class Input extends BasePage<AllInputLocators> {
         while (!endReached) {
             const picks = await this.getQuickPicks()
             for (const pick of picks) {
-                const lastRow = await this.elem.$$(this.locatorMap.DefaultTreeSection.lastRow as string)
-                if (lastRow.length > 0) {
+                const lastRow =  this.elem.$$(this.locatorMap.DefaultTreeSection.lastRow as string)
+                if (await lastRow.length > 0) {
                     endReached = true
                 } else if (
                     await pick.elem.getAttribute('aria-posinset') === await pick.elem.getAttribute('aria-setsize')
@@ -205,9 +205,9 @@ export abstract class Input extends BasePage<AllInputLocators> {
      * @returns Promise resolving to title if it exists, to undefined otherwise
      */
     async getTitle (): Promise<string | undefined> {
-        const titleBar = await this.titleBar$$
-        if (titleBar.length > 0 && await titleBar[0].isDisplayed()) {
-            return (await titleBar[0].$(this.locators.title)).getText()
+        const titleBar =  this.titleBar$$
+        if ((await titleBar.length)> 0 && await titleBar[0].isDisplayed()) {
+            return ( titleBar[0].$(this.locators.title)).getText()
         }
         return undefined
     }
@@ -217,10 +217,10 @@ export abstract class Input extends BasePage<AllInputLocators> {
      * @returns Promise resolving to true if a button was clicked, to false otherwise
      */
     async back (): Promise<boolean> {
-        const titleBar = await this.titleBar$$
-        if (titleBar.length > 0 && await titleBar[0].isDisplayed()) {
-            const backBtn = await titleBar[0].$$(this.locators.backButton)
-            if (backBtn.length > 0 && await backBtn[0].isEnabled()) {
+        const titleBar =  this.titleBar$$
+        if ((await titleBar.length) > 0 && await titleBar[0].isDisplayed()) {
+            const backBtn =  titleBar[0].$$(this.locators.backButton)
+            if ((await backBtn.length) > 0 && await backBtn[0].isEnabled()) {
                 await backBtn[0].click()
                 return true
             }

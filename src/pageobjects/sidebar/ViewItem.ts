@@ -224,7 +224,7 @@ export class ViewItemAction extends BasePage<typeof ViewSectionLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        elem: WebdriverIO.Element,
+        elem: ChainablePromiseElement,
         label: string,
         viewItem: TreeItem
     ) {

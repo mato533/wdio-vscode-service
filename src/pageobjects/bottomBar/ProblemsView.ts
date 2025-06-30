@@ -1,4 +1,3 @@
-import type { ChainablePromiseElement } from 'webdriverio'
 
 import { BottomBarPanel } from '../index.js'
 import {
@@ -106,7 +105,7 @@ export class ProblemsView extends BasePage<typeof ProblemsViewLocators> {
      * Gets the count badge
      * @returns Promise resolving to the WebElement representing the count badge
      */
-    getCountBadge (): Promise<WebdriverIO.Element> {
+    getCountBadge (): WebdriverIO.Element {
         return this.changeCount$
     }
 }
@@ -127,7 +126,7 @@ export class Marker extends ElementWithContextMenu<typeof MarkerLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: WebdriverIO.Element,
+        element: ChainablePromiseElement,
         public view: ProblemsView
     ) {
         super(locators, element, view.elem)

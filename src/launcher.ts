@@ -66,7 +66,7 @@ export default class VSCodeServiceLauncher {
         this._cachePath = this._options.cachePath || DEFAULT_CACHE_PATH
     }
 
-    async onPrepare (_: never, capabilities: Capabilities.RemoteCapabilities) {
+    async onPrepare (_: never, capabilities: WebdriverIO.Capabilities) {
         const caps: VSCodeCapabilities[] = Array.isArray(capabilities)
             ? capabilities.map((c) => ((c as Capabilities.W3CCapabilities).alwaysMatch || c) as VSCodeCapabilities)
             : Object.values(capabilities).map((c) => c.capabilities as VSCodeCapabilities)

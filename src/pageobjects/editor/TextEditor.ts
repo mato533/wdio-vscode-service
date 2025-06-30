@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import clipboard from 'clipboardy'
-import { Key, ChainablePromiseElement } from 'webdriverio'
+import { Key } from 'webdriverio'
 
 import logger from '@wdio/logger'
 import { ContentAssist, ContextMenu, InputBox } from '../index.js'
@@ -274,8 +274,8 @@ export class TextEditor extends Editor<EditorLocators> {
      * @returns Selection page object
      */
     async getSelection (): Promise<Selection | undefined> {
-        const selection = await this.selection$$
-        if (selection.length < 1) {
+        const selection =  this.selection$$
+        if (await selection.length < 1) {
             return undefined
         }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -382,9 +382,9 @@ export class TextEditor extends Editor<EditorLocators> {
 
     async openContextMenu (): Promise<ContextMenu> {
         await this.elem.click({ button: 2 })
-        const shadowRootHost = await this.view.elem.$$('.shadow-root-host')
+        const shadowRootHost =  this.view.elem.$$('.shadow-root-host')
 
-        if (shadowRootHost.length > 0) {
+        if (await shadowRootHost.length > 0) {
             const shadowRoot = $(await browser.execute('return arguments[0].shadowRoot', shadowRootHost[0]))
             return new ContextMenu(this.locatorMap, shadowRoot).wait()
         }
@@ -417,9 +417,9 @@ export class TextEditor extends Editor<EditorLocators> {
         const lineNum = await margin.$(this.locators.lineNumber(line))
         await lineNum.moveTo()
 
-        const lineOverlay = await margin.$(this.locators.lineOverlay(line))
-        const breakPoint = await lineOverlay.$$(this.locators.breakPoint)
-        if (breakPoint.length > 0) {
+        const lineOverlay =  margin.$(this.locators.lineOverlay(line))
+        const breakPoint =  lineOverlay.$$(this.locators.breakPoint)
+        if (await breakPoint.length > 0) {
             await breakPoint[0].click()
             // eslint-disable-next-line wdio/no-pause
             await browser.pause(200)
@@ -427,7 +427,7 @@ export class TextEditor extends Editor<EditorLocators> {
         }
 
         const noBreak = await lineOverlay.$$(this.locators.debugHint)
-        if (noBreak.length > 0) {
+        if (await noBreak.length > 0) {
             await noBreak[0].click()
             // eslint-disable-next-line wdio/no-pause
             await browser.pause(200)
@@ -491,7 +491,7 @@ class Selection extends ElementWithContextMenu<typeof TextEditorLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: WebdriverIO.Element,
+        element: ChainablePromiseElement,
         public editor: TextEditor
     ) {
         super(locators, element)
@@ -501,7 +501,7 @@ class Selection extends ElementWithContextMenu<typeof TextEditorLocators> {
         await this.elem.click({ button: 2 })
         const shadowRootHost = await this.editor.view.elem.$$('.shadow-root-host')
 
-        if (shadowRootHost.length > 0) {
+        if (await shadowRootHost.length > 0) {
             const shadowRoot = $(await browser.execute('return arguments[0].shadowRoot', shadowRootHost[0]))
             return new ContextMenu(this.locatorMap, shadowRoot).wait()
         }
@@ -524,7 +524,7 @@ export class CodeLens extends BasePage<typeof TextEditorLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: WebdriverIO.Element,
+        element: ChainablePromiseElement,
         public editor: TextEditor
     ) {
         super(locators, element)
@@ -564,7 +564,7 @@ export class FindWidget extends BasePage<typeof FindWidgetLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: WebdriverIO.Element,
+        element: ChainablePromiseElement,
         public textEditor: TextEditor
     ) {
         super(locators, element)
@@ -756,7 +756,7 @@ export class FindWidget extends BasePage<typeof FindWidgetLocators> {
     }
 
     private async getInputText (composite: WebdriverIO.Element) {
-        const input = await composite.$(this.locators.content)
-        return input.getHTML(false)
+        const input = composite.$(this.locators.content)
+        return input.getHTML({ includeSelectorTag: false })
     }
 }

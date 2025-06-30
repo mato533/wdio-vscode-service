@@ -10,7 +10,7 @@ export class WebView extends BasePage<typeof WebViewLocators> {
      */
     public locatorKey = 'WebView' as const
 
-    get activeFrame (): WebdriverIO.Element {
+    get activeFrame (): ChainablePromiseElement {
         return $(this._locators.WebView.activeFrame as string)
     }
 
@@ -53,9 +53,9 @@ export class WebView extends BasePage<typeof WebViewLocators> {
             return []
         }
 
-        const frames = await browser.$$(locators.WebView.outerFrame as string)
+        const frames = browser.$$(locators.WebView.outerFrame as string)
         return frames.map((f) => (
-            new WebView(locators, f as any as WebdriverIO.Element)
+            new WebView(locators, f as unknown as ChainablePromiseElement)
         ))
     }
 }

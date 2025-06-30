@@ -22,17 +22,17 @@
     "docs": "typedoc",
     "prepare": "husky",
     "release": "release-it --github.release",
-    "release:ci": "pnpm run release -- --ci --npm.skipChecks --no-git.requireCleanWorkingDir",
-    "release:patch": "pnpm run release -- patch",
-    "release:minor": "pnpm run release -- minor",
-    "release:major": "pnpm run release -- major",
+    "release:ci": "npm run release -- --ci --npm.skipChecks --no-git.requireCleanWorkingDir",
+    "release:patch": "npm run release -- patch",
+    "release:minor": "npm run release -- minor",
+    "release:major": "npm run release -- major",
     "test": "run-s test:*",
     "test:setup": "node ./.github/scripts/link.mjs",
     "test:lint": "eslint src test",
     "test:e2e": "run-s test:e2e:*",
     "test:e2e:run": "wdio run ./test/wdio.conf.ts",
     "test:e2e:cleanup": "git checkout -- package.json",
-    "watch": "pnpm run build:ts -- --watch"
+    "watch": "npm run build:ts -- --watch"
   },
   "keywords": [
     "webdriverio",
