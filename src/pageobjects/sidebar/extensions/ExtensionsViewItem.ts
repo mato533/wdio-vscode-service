@@ -25,7 +25,7 @@ export class ExtensionsViewItem extends ViewItem {
 
     constructor (
         locators: VSCodeLocatorMap,
-        extensionElement: ChainablePromiseElement<WebdriverIO.Element>,
+        extensionElement: ChainablePromiseElement,
         public section: ExtensionsViewSection
     ) {
         super(locators, extensionElement, section.elem)
@@ -43,8 +43,8 @@ export class ExtensionsViewItem extends ViewItem {
      * @returns Promise resolving to version string
      */
     async getVersion (): Promise<string> {
-        const version = await this.version$$
-        if (version.length > 0) {
+        const version =  this.version$$
+        if (await version.length > 0) {
             return version[0].getText()
         }
         const label = await this.elem.getAttribute('aria-label')

@@ -1,5 +1,3 @@
-import type { ChainablePromiseElement } from 'webdriverio'
-
 import { TextEditor, DiffEditor, SettingsEditor } from '../index.js'
 import {
     PageDecorator, IPageDecorator, BasePage, ElementWithContextMenu, VSCodeLocatorMap
@@ -191,7 +189,7 @@ export class EditorGroup extends BasePage<typeof EditorViewLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: ChainablePromiseElement<WebdriverIO.Element>,
+        element: ChainablePromiseElement,
         public view = new EditorView(locators)
     ) {
         super(locators, element)
@@ -362,7 +360,7 @@ export class EditorTab extends ElementWithContextMenu<typeof EditorLocatorsObj> 
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: ChainablePromiseElement<WebdriverIO.Element>,
+        element: ChainablePromiseElement,
         public view: EditorView
     ) {
         super(locators, element)

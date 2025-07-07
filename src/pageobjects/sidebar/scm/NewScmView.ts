@@ -18,21 +18,20 @@ export interface NewScmView extends IPageDecorator<typeof ScmViewLocators> { }
 @PageDecorator(ScmViewLocators)
 export class NewScmView extends ScmView {
     async getProviders (): Promise<ScmProvider[]> {
-        const inputs = await this.inputField$$
-        if (inputs.length < 1) {
+        const inputs = this.inputField$$
+        if (await inputs.length < 1) {
             return []
         }
 
-        const providers = await this.multiScmProvider$$
-        if (inputs.length === 1 && providers.length < 1) {
-            return [await new SingleScmProvider(this.locatorMap, this.singleScmProvider$, this).wait()]
+        const providers =  this.multiScmProvider$$
+        if (await inputs.length === 1 && await providers.length < 1) {
+            return [await new SingleScmProvider(this.locatorMap, this.singleScmProvider$ as ChainablePromiseElement, this).wait()]
         }
 
-        const elements = await this.multiProviderItem$$
+        const elements =  this.multiProviderItem$$
         return Promise.all(
-            elements.map(async (element) => (
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                new MultiScmProvider(this.locatorMap, element as any, this).wait()
+            await elements.map(async (element:ChainablePromiseElement) => (
+                 new MultiScmProvider(this.locatorMap, element as any, this).wait()
             ))
         )
     }
@@ -115,8 +114,9 @@ export interface MultiScmProvider extends IPageDecorator<typeof ScmViewLocators>
 @PageDecorator(ScmViewLocators)
 export class MultiScmProvider extends ScmProvider {
     async takeAction (title: string): Promise<boolean> {
-        const actions = await this.action$$
-        const names = await Promise.all(actions.map(async (action) => action.getAttribute('title')))
+        const actions =  this.action$$
+
+        const names = await Promise.all(await actions.map(async(action) =>action.getAttribute('title')))
         const index = names.findIndex((item) => item === title)
 
         if (index > -1) {

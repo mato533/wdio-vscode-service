@@ -1,5 +1,3 @@
-import { ChainablePromiseElement } from 'webdriverio'
-
 import { ViewSection } from '../index.js'
 import {
     BasePage, PageDecorator, IPageDecorator, VSCodeLocatorMap
@@ -27,7 +25,7 @@ export class WelcomeContentButton extends BasePage<typeof WelcomeContentLocators
      */
     constructor (
         locators: VSCodeLocatorMap,
-        panel: ChainablePromiseElement<WebdriverIO.Element>,
+        panel: ChainablePromiseElement,
         public welcomeSection: WelcomeContentSection
     ) {
         super(locators, panel)
@@ -67,7 +65,7 @@ export class WelcomeContentSection extends BasePage<typeof WelcomeContentLocator
      */
     constructor (
         locators: VSCodeLocatorMap,
-        panel: ChainablePromiseElement<WebdriverIO.Element>,
+        panel: ChainablePromiseElement,
         parent: ViewSection
     ) {
         super(locators, panel, parent.elem)
@@ -78,11 +76,11 @@ export class WelcomeContentSection extends BasePage<typeof WelcomeContentLocator
      * view in the order that they appear.
      */
     public async getContents (): Promise<(WelcomeContentButton | string)[]> {
-        const elements = await this.buttonOrText$$
-        return Promise.all(elements.map(async (e) => {
+        const elements = this.buttonOrText$$ as ChainablePromiseArray
+        return Promise.all(elements.map(async (e:ChainablePromiseElement) => {
             const tagName = await e.getTagName()
             if (tagName === 'p') {
-                return e.getText()
+                return e.getText() as string
             }
 
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

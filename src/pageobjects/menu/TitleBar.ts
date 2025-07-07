@@ -106,7 +106,7 @@ export class TitleBar extends Menu<typeof TitleBarLocators> {
          * to fetch the HTML
          */
         if (title.length === 0) {
-            return this.title$.getHTML(false)
+            return this.title$.getHTML({ includeSelectorTag: false })
         }
 
         return title
@@ -144,8 +144,8 @@ export class TitleBarItem extends MenuItem<typeof TitleBarLocators> {
     }
 
     async select () {
-        const openMenus = await browser.$$(this.locatorMap.ContextMenu.elem as string)
-        if (openMenus.length > 0 && await openMenus[0].isDisplayed()) {
+        const openMenus =  browser.$$(this.locatorMap.ContextMenu.elem as string)
+        if (await openMenus.length > 0 && await openMenus[0].isDisplayed()) {
             await browser.keys('Escape')
         }
         await this.openMenu(this)

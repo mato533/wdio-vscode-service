@@ -123,9 +123,9 @@ export class Workbench extends BasePage<typeof WorkbenchLocators> {
      */
     async getNotifications (): Promise<Notification[]> {
         const notifications: Notification[] = []
-        const containers = await this.notificationContainer$$
+        const containers =  this.notificationContainer$$
 
-        if (containers.length === 0) {
+        if (await (containers.length) === 0) {
             return []
         }
 
@@ -182,8 +182,8 @@ export class Workbench extends BasePage<typeof WorkbenchLocators> {
      */
     async openCommandPrompt (): Promise<QuickOpenBox | InputBox> {
         const editorView = await new EditorView(this.locatorMap).wait()
-        const webview = await editorView.webView$$
-        if (webview.length > 0) {
+        const webview = editorView.webView$$
+        if ((await webview.length) > 0) {
             const tab = await editorView.getActiveTab()
             if (tab) {
                 await tab.elem.addValue('F1')

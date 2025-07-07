@@ -1,5 +1,3 @@
-import type { ChainablePromiseElement } from 'webdriverio'
-
 import { Menu, MenuItem } from '../index.js'
 import {
     PageDecorator, IPageDecorator, VSCodeLocatorMap, sleep
@@ -107,7 +105,7 @@ export class ContextMenuItem extends MenuItem<typeof ContextMenuLocators> {
 
     constructor (
         locators: VSCodeLocatorMap,
-        base: ChainablePromiseElement<WebdriverIO.Element>,
+        base: ChainablePromiseElement,
         public parentMenu: Menu<typeof ContextMenuLocators>
     ) {
         super(locators, base, parentMenu.elem)

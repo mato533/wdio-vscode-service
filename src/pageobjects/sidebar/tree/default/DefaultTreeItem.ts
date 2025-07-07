@@ -1,5 +1,3 @@
-import { ChainablePromiseElement } from 'webdriverio'
-
 import { TreeItem, ViewItemLocators } from '../../ViewItem.js'
 import { TreeSection } from '../TreeSection.js'
 import { PageDecorator, IPageDecorator, VSCodeLocatorMap } from '../../../utils.js'
@@ -23,7 +21,7 @@ export class DefaultTreeItem extends TreeItem {
 
     constructor (
         locators: VSCodeLocatorMap,
-        element: ChainablePromiseElement<WebdriverIO.Element>,
+        element: ChainablePromiseElement,
         public viewPart: TreeSection
     ) {
         super(locators, element, viewPart.elem)
