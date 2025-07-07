@@ -157,7 +157,8 @@ export default class VSCodeWorkerService implements Services.ServiceInstance {
             customArgs.logExtensionHostCommunication = true
         }
 
-        const binary = path.join(__dirname, 'chromium', `index.${process.platform === 'win32' ? 'exe' : 'js'}`)
+        process.env.WDIO_VSCODE_SERVICE_NODE_PATH=process.execPath
+        const binary = path.join(__dirname, 'chromium', `index.${process.platform === 'win32' ? 'cmd' : 'js'}`)
         const args = Object.entries({ ...customArgs, ...this._vscodeOptions.vscodeArgs }).reduce(
             (prev, [key, value]) => {
                 const decamelizedKey = decamelize(key, { separator: '-' })
