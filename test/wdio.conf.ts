@@ -1,7 +1,6 @@
 import fs from 'node:fs/promises'
 import url from 'node:url'
 import path from 'node:path'
-import type { Options } from '@wdio/types'
 import type { VSCodeCapabilities } from '../dist/types'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
@@ -61,7 +60,7 @@ if (isWebTest) {
     }
 }
 
-export const config: Options.Testrunner = {
+export const config: WebdriverIO.Config = {
     //
     // ====================
     // Runner Configuration
@@ -80,20 +79,20 @@ export const config: Options.Testrunner = {
     // environment variables for ts-node or use wdio config's autoCompileOpts section.
     //
 
-    autoCompileOpts: {
-        autoCompile: true,
-        // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
-        // for all available options
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: path.join(__dirname, 'tsconfig.json')
-        }
-        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
-        // do please make sure "tsconfig-paths" is installed as dependency
-        // tsConfigPathsOpts: {
-        //     baseUrl: './'
-        // }
-    },
+    // autoCompileOpts: {
+    //     autoCompile: true,
+    //     // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
+    //     // for all available options
+    //     tsNodeOpts: {
+    //         transpileOnly: true,
+    //         project: path.join(__dirname, 'tsconfig.json')
+    //     }
+    //     // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
+    //     // do please make sure "tsconfig-paths" is installed as dependency
+    //     // tsConfigPathsOpts: {
+    //     //     baseUrl: './'
+    //     // }
+    // },
     //
     // ==================
     // Specify Test Files
