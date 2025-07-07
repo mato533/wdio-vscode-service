@@ -15,7 +15,7 @@
   "scripts": {
     "build": "run-s build:*",
     "build:ts": "tsc -b .",
-    "build:compile": "pkg --target win --out-path ./dist/chromium ./dist/chromium/index.js",
+    "build:copy": "shx cp ./src/chromium/index.cmd ./dist/chromium",
     "build:chmod": "chmod +x ./dist/chromium/index.js",
     "ci": "run-s test:lint build test",
     "clean": "rimraf ./node_modules ./dist",
@@ -81,10 +81,10 @@
     "eslint-plugin-wdio": "^9.16.2",
     "husky": "^9.1.7",
     "npm-run-all2": "^8.0.4",
-    "pkg": "^5.8.1",
     "release-it": "^19.0.3",
     "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2",
+    "shx": "^0.4.0",
+    "tsx": "^4.20.3",
     "typedoc": "^0.28.6",
     "typescript": "^5.8.3"
   },
